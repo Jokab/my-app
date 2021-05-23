@@ -3,5 +3,21 @@
 }
 
 .App {
-  padding: 14px 0 0 14px;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.TimeTables {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100%;
+}
+
+.Clock {
+  margin-bottom: 1rem;
 }

@@ -10,7 +10,7 @@ const baseUrl = "https://api.vasttrafik.se/bin/rest.exe/v2";
 
 function Clock() {
   return (
-    <div>Klockan är nu: {new Date().toLocaleTimeString("sv-SE")}</div>
+    <div className="Clock">Klockan är nu: {new Date().toLocaleTimeString("sv-SE")}</div>
   )
 }
 
@@ -30,6 +30,33 @@ class Departure extends Component<DepartureProps, {}> {
   }
 }
 
+type TimeTableProps = {
+  track: string;
+  departures: Object[];
+}
+
+class TimeTable extends Component<TimeTableProps, {}> {
+  render() {
+    return (
+      <div>
+        <div>Läge {this.props.track}</div>
+        <table className="Main">
+          <thead>
+            <th>Linje</th>
+            <th>Ändhållplats</th>
+            <th>Avgångstid</th>
+          </thead>
+          <tbody>
+            {this.props.departures.map((e: any, i: any) => {
+                return <Departure departure={e}/>
+            })}
+          </tbody>
+        </table>
+      </div>
+    )
+  };
+}
+
 class App extends Component<{}, AppState> {
   constructor(props: AppState) {
     super(props);
@@ -40,18 +67,10 @@ class App extends Component<{}, AppState> {
     return (
       <div className="App">
         <Clock/>
-        <table className="Main">
-          <thead>
-            <th>Linje</th>
-            <th>Ändhållplats</th>
-            <th>Avgångstid</th>
-          </thead>
-          <tbody>
-            {this.state.departures.map((e: any, i: any) => {
-                return <Departure departure={e}/>
-            })}
-          </tbody>
-        </table>
+        <div className="TimeTables">
+          <TimeTable departures={this.state.departures.filter((x: any) => x.track === "A")} track={"A"}/>
+          <TimeTable departures={this.state.departures.filter((x: any) => x.track === "B")} track={"B"}/>
+        </div>
       </div>  
     );
   }
