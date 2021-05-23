@@ -28,7 +28,7 @@ export class LineNumber extends Component<LineNumberProps, LineNumberState> {
     componentDidMount() {
         if (this.canvasRef.current) {
             var canvas = this.canvasRef.current;
-            canvas = this.createHiPPICanvas(canvas, 28, 28);
+            canvas = this.createHiPPICanvas(canvas, 24, 24);
             
             const context = canvas.getContext("2d");
             if (context !== null) {
@@ -58,22 +58,22 @@ export class LineNumber extends Component<LineNumberProps, LineNumberState> {
         }
         context.fillStyle = backgroundColor;
         
-        roundRect(context, 0, 0, 28, 28, 5, true, false);
+        roundRect(context, 0, 0, 24, 24, 5, true, false);
 
         context.textBaseline = 'middle';
         context.textAlign = "center";
-        context.font = '16px sans-serif';
+        context.font = '14px sans-serif';
         context.fillStyle = textColor;
 
-        context.fillText(line, 14, 15, 16);
+        context.fillText(line, 12, 13, 16);
     }
 
     render() {
         return (
             <canvas 
                 ref={this.canvasRef}
-                width="28px"
-                height="28px"
+                width="24px"
+                height="24px"
                 style={{
                     margin: "auto",
                     display: "block"

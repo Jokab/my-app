@@ -1,5 +1,6 @@
-.Main > table, th, td {
-  border: 1px solid black;
+.Main tbody tr:nth-child(odd){
+  background-color: #a0acb9;
+  color: white;
 }
 
 .App {
