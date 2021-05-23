@@ -1,0 +1,7 @@
+.Main > table, th, td {
+  border: 1px solid black;
+}
+
+.App {
+  padding: 14px 0 0 14px;
+}
