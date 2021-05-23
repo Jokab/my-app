@@ -22,3 +22,8 @@
 .Clock {
   margin-bottom: 1rem;
 }
+
+.LineNumberCell {
+  text-align:center;
+  vertical-align: center;
+}

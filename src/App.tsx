@@ -22,7 +22,7 @@ class Departure extends Component<DepartureProps, {}> {
   render() {
     return (
       <tr>
-          <td><LineNumber number={this.props.departure.sname}/></td>
+          <td className="LineNumberCell"><LineNumber line={this.props.departure.sname}/></td>
           <td>{this.props.departure.direction}</td>
           <td>{this.props.departure.time}</td>
       </tr>
