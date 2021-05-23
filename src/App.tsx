@@ -8,6 +8,28 @@ type AppState = {
 
 const baseUrl = "https://api.vasttrafik.se/bin/rest.exe/v2";
 
+function Clock() {
+  return (
+    <div>Klockan är nu: {new Date().toLocaleTimeString("sv-SE")}</div>
+  )
+}
+
+type DepartureProps = {
+  departure: any
+}
+
+class Departure extends Component<DepartureProps, {}> {
+  render() {
+    return (
+      <tr>
+          <td><LineNumber number={this.props.departure.sname}/></td>
+          <td>{this.props.departure.direction}</td>
+          <td>{this.props.departure.time}</td>
+      </tr>
+    )
+  }
+}
+
 class App extends Component<{}, AppState> {
   constructor(props: AppState) {
     super(props);
@@ -15,33 +37,27 @@ class App extends Component<{}, AppState> {
   }
   
   render() {
-    const now = new Date().toLocaleTimeString("sv-SE");
     return (
       <div className="App">
-        <div>Klockan är nu: {new Date().toLocaleTimeString("sv-SE")}</div>
+        <Clock/>
         <table className="Main">
           <thead>
-          <th>Linje</th>
-          <th>Ändhållplats</th>
-          <th>Avgångstid</th>
+            <th>Linje</th>
+            <th>Ändhållplats</th>
+            <th>Avgångstid</th>
           </thead>
           <tbody>
             {this.state.departures.map((e: any, i: any) => {
-                return <tr>
-                    <td><LineNumber number={e.sname} /></td>
-                    <td>{e.direction}</td>
-                    <td>{e.time}</td>
-                </tr>
-              })}
+                return <Departure departure={e}/>
+            })}
           </tbody>
         </table>
-      </div>
+      </div>  
     );
   }
 
   async componentDidMount() {
     const location = await this.getStop("Musikvägen, Göteborg");
-    console.log(location);
     const departures = await this.getDepartures(location.id, new Date());
 
     this.setState({...this.state, departures: departures.DepartureBoard.Departure});
