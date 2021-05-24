@@ -10,19 +10,19 @@ type AppState = {
 const baseUrl = "https://api.vasttrafik.se/bin/rest.exe/v2";
 
 type ClockState = {
-  timer: any;
+  currentTime: any;
 }
 class Clock extends Component<{}, ClockState> {
   timerId: any;
 
   constructor(props: any) {
     super(props);
-    this.state = { timer: new Date() }
+    this.state = { currentTime: new Date() }
   }
 
   componentDidMount() {
     this.timerId = setInterval(
-      () => this.setState({...this.state, timer: new Date()}), 
+      () => this.setState({...this.state, currentTime: new Date()}), 
     1000);
   }
 
@@ -32,7 +32,7 @@ class Clock extends Component<{}, ClockState> {
 
   render() {
     return (
-      <div className="Clock">Klockan är nu<br/> {new Date().toLocaleTimeString("sv-SE")}</div>
+      <div className="Clock">Klockan är nu<br/> {this.state.currentTime.toLocaleTimeString("sv-SE")}</div>
     )
   }
 }
