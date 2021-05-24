@@ -11,7 +11,7 @@ const baseUrl = "https://api.vasttrafik.se/bin/rest.exe/v2";
 
 function Clock() {
   return (
-    <div className="Clock">Klockan är nu: {new Date().toLocaleTimeString("sv-SE")}</div>
+    <div className="Clock">Klockan är nu<br/> {new Date().toLocaleTimeString("sv-SE")}</div>
   )
 }
 
@@ -54,7 +54,7 @@ type TimeTableProps = {
 class TimeTable extends Component<TimeTableProps, {}> {
   render() {
     return (
-      <div>
+      <div className="TimeTable">
         <div>Läge {this.props.track}</div>
         <table className="Main">
           <thead>

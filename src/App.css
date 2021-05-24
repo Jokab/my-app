@@ -4,7 +4,6 @@
 }
 
 .Main {
-  border: 1px solid #a0acb9;
 }
 
 .App {
@@ -21,7 +20,10 @@
   flex-direction: row;
   justify-content: space-between;
   height: 100%;
-  width: 32rem;
+  width: 34rem;
+}
+
+.TimeTable {
   box-shadow: 0 0.1875rem 1.25rem rgb(96 96 96 / 10%);
   padding: 0.8rem;
   border-radius: .5rem!important;
@@ -33,6 +35,7 @@
 
 .Clock {
   margin-bottom: 1rem;
+  text-align: center;
 }
 
 .LineNumberCell {
