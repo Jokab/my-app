@@ -9,10 +9,32 @@ type AppState = {
 
 const baseUrl = "https://api.vasttrafik.se/bin/rest.exe/v2";
 
-function Clock() {
-  return (
-    <div className="Clock">Klockan är nu<br/> {new Date().toLocaleTimeString("sv-SE")}</div>
-  )
+type ClockState = {
+  timer: any;
+}
+class Clock extends Component<{}, ClockState> {
+  timerId: any;
+
+  constructor(props: any) {
+    super(props);
+    this.state = { timer: new Date() }
+  }
+
+  componentDidMount() {
+    this.timerId = setInterval(
+      () => this.setState({...this.state, timer: new Date()}), 
+    1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerId);
+  }
+
+  render() {
+    return (
+      <div className="Clock">Klockan är nu<br/> {new Date().toLocaleTimeString("sv-SE")}</div>
+    )
+  }
 }
 
 type DepartureProps = {
