@@ -1,99 +1,13 @@
-import {LineNumber} from './LineNumber';
 import './App.css';
-import React, { Component } from 'react';
-import {DateTime} from 'luxon';
+import { Component } from 'react';
+import { TimeTable } from './TimeTable';
+import { Clock } from './Clock';
 
 type AppState = {
   departures: any;
 }
 
 const baseUrl = "https://api.vasttrafik.se/bin/rest.exe/v2";
-
-type ClockState = {
-  currentTime: any;
-}
-class Clock extends Component<{}, ClockState> {
-  timerId: any;
-
-  constructor(props: any) {
-    super(props);
-    this.state = { currentTime: new Date() }
-  }
-
-  componentDidMount() {
-    this.timerId = setInterval(
-      () => this.setState({...this.state, currentTime: new Date()}), 
-    1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timerId);
-  }
-
-  render() {
-    return (
-      <div className="Clock">Klockan är nu<br/> {this.state.currentTime.toLocaleTimeString("sv-SE")}</div>
-    )
-  }
-}
-
-type DepartureProps = {
-  departure: any
-}
-
-class Departure extends Component<DepartureProps, {}> {
-  render() {
-    let minutesLate = this.calculateHowLate(this.props.departure.time, this.props.departure.rtTime)
-
-    const departureTime = this.props.departure.rtTime ? this.props.departure.rtTime : this.props.departure.time;
-    let timeCell;
-    if (minutesLate > 0) {
-      timeCell = <td>{departureTime} (+{minutesLate})</td>
-    } else if (minutesLate < 0) {
-      timeCell = <td>{departureTime} (-{minutesLate})</td>
-    } else {
-      timeCell = <td>{departureTime}</td>
-    }
-    return (
-      <tr>
-          <td className="LineNumberCell"><LineNumber line={this.props.departure.sname}/></td>
-          <td>{this.props.departure.direction}</td>
-          {timeCell}
-      </tr>
-    )
-  }
-
-  calculateHowLate(time: string, rtTime: string): number {
-    return DateTime.fromFormat(rtTime, "HH:mm").diff(DateTime.fromFormat(time, "HH:mm")).minutes;
-  }
-}
-
-type TimeTableProps = {
-  track: string;
-  departures: Object[];
-}
-
-class TimeTable extends Component<TimeTableProps, {}> {
-  render() {
-    return (
-      <div className="TimeTable">
-        <div>Läge {this.props.track}</div>
-        <table className="Main">
-          <thead>
-            <th>Linje</th>
-            <th>Ändhållplats</th>
-            <th>Avgångstid</th>
-          </thead>
-          <tbody>
-            {this.props.departures.map((e: any, i: any) => {
-                return <Departure departure={e}/>
-            })}
-          </tbody>
-        </table>
-      </div>
-    )
-  };
-}
 
 class App extends Component<{}, AppState> {
   constructor(props: AppState) {
@@ -179,7 +93,4 @@ class App extends Component<{}, AppState> {
   }
 }
 
-
-
 export default App;
-

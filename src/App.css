@@ -1,11 +1,3 @@
-.Main tbody tr:nth-child(odd){
-  background-color: #a0acb9;
-  color: white;
-}
-
-.Main {
-}
-
 .App {
   padding-top: 2rem;
   display: flex;
@@ -21,24 +13,4 @@
   justify-content: space-between;
   height: 100%;
   width: 34rem;
-}
-
-.TimeTable {
-  box-shadow: 0 0.1875rem 1.25rem rgb(96 96 96 / 10%);
-  padding: 0.8rem;
-  border-radius: .5rem!important;
-  border-top-left-radius: 0.5rem !important;
-  border-top-right-radius: 0.5rem !important;
-  border-bottom-right-radius: 0.5rem !important;
-  border-bottom-left-radius: 0.5rem !important;
-}
-
-.Clock {
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-.LineNumberCell {
-  text-align:center;
-  vertical-align: center;
 }

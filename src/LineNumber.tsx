@@ -1,4 +1,4 @@
-import React, {Component, FunctionComponent} from 'react';
+import React, { Component } from 'react';
 
 type LineNumberProps = {
     line: string;
@@ -7,9 +7,8 @@ type LineNumberState = {
     canvasRef: any;
 }
 export class LineNumber extends Component<LineNumberProps, LineNumberState> {
-
-
     canvasRef: any;
+
     constructor(props: LineNumberProps) {
         super(props);
         this.canvasRef = React.createRef<HTMLCanvasElement>();
