@@ -14,11 +14,6 @@ export class TimeTable extends Component<TimeTableProps, {}> {
             <div className="TimeTable">
                 <div>Läge {this.props.track}</div>
                 <table className="Main">
-                    <thead>
-                        <th>Linje</th>
-                        <th>Ändhållplats</th>
-                        <th>Avgångstid</th>
-                    </thead>
                     <tbody>
                         {this.props.departures.map((e: any, i: any) => {
                             return <Departure departure={e}/>

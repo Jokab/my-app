@@ -9,8 +9,13 @@
     background-color: white;
 }
 
-.Main tbody tr:nth-child(odd){
+.Main {
+    width: 14rem;
+}
+
+.Main tbody tr:nth-child(odd) {
     background-color: #a0acb9;
-    color: white;
+    color: black;
+    border-collapse: collapse;
 }
   
