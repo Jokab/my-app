@@ -23,7 +23,7 @@ export class TimeTable extends Component<TimeTableProps, {}> {
                 <table className="Main">
                     <tbody>
                         {reasonableDepartures.map((e: any, i: any) => {
-                            return <Departure departure={e}/>
+                            return <Departure key={i} departure={e}/>
                         })}
                     </tbody>
                 </table>
