@@ -2,6 +2,8 @@ import './App.css';
 import { Component } from 'react';
 import { TimeTable } from './TimeTable';
 import { Clock } from './Clock';
+import { DepartureModel } from './DepartureModel'
+import { DateTime } from 'luxon';
 
 type AppState = {
   departures: any;
@@ -31,7 +33,7 @@ class App extends Component<{}, AppState> {
     const location = await this.getStop("Musikvägen, Göteborg");
     const departures = await this.getDepartures(location.id, new Date());
 
-    this.setState({...this.state, departures: departures.DepartureBoard.Departure});
+    this.setState({...this.state, departures: departures});
   }
 
   /**
@@ -54,12 +56,20 @@ class App extends Component<{}, AppState> {
    * @param dateTime Date and time to search departures from
    * @returns Next 20 departures
    */
-  async getDepartures(stopId: string, dateTime: Date): Promise<any> {
+  async getDepartures(stopId: string, dateTime: Date): Promise<DepartureModel[]> {
     const timeWithoutSeconds = dateTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
     const date = encodeURIComponent(dateTime.toLocaleDateString("sv-SE"));
     const time = encodeURIComponent(timeWithoutSeconds);
     const response = await this.makeRequest(baseUrl + `/departureBoard?id=${stopId}&format=json&date=${date}&time=${time}&timeSpan=20`);
-    return response;
+
+    return response.DepartureBoard.Departure.map((departure: any) => ({
+       expectedDepartureTime: DateTime.fromFormat(departure.time, "HH:mm"),
+       realTimeDepartureTime: DateTime.fromFormat(departure.rtTime, "HH:mm"),
+       departureTime: DateTime.fromFormat(departure.rtTime ? departure.rtTime : departure.time, "HH:mm"),
+       lineShortName: departure.sname,
+       track: departure.track,
+       direction: departure.direction
+    } as DepartureModel));
   }
 
   async makeRequest(url: string) {

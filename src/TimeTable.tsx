@@ -1,21 +1,28 @@
 import { Component } from "react"
 import { Departure } from './Departure';
+import { DepartureModel } from "./DepartureModel";
 import './TimeTable.css';
+import { DateTime } from 'luxon';
+
 
 
 type TimeTableProps = {
     track: string;
-    departures: Object[];
+    departures: DepartureModel[];
 }
+
+const MINIMUM_TIME_UNTIL_DEPARTURE = 3;
 
 export class TimeTable extends Component<TimeTableProps, {}> {
     render() {
+        const reasonableDepartures = this.props.departures.filter(x => x.departureTime.diff(DateTime.local(), ["minutes"]).minutes > MINIMUM_TIME_UNTIL_DEPARTURE);
+
         return (
             <div className="TimeTable">
                 <div>Läge {this.props.track}</div>
                 <table className="Main">
                     <tbody>
-                        {this.props.departures.map((e: any, i: any) => {
+                        {reasonableDepartures.map((e: any, i: any) => {
                             return <Departure departure={e}/>
                         })}
                     </tbody>
